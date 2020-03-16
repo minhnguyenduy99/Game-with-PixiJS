@@ -1,4 +1,4 @@
-let path = require('path');
+let path = require('path')
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -12,11 +12,25 @@ module.exports = {
     compress: true,
     port: 8080,
     stats: 'errors-warnings',
-    before: (app, server, compile) => {
+    before: (app) => {
       app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, './index.html'));
       })
     }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          // eslint options (if necessary)
+          fix: true,
+          failOnError: true
+        }
+      }
+    ]
   },
   plugins: [new HtmlWebpackPlugin()]
 }
