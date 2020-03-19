@@ -33,6 +33,7 @@ module.exports = {
         test: /\.(png|svg|jpg|gif)$/,
         loader: 'file-loader',
         options: {
+          name: '[name].[ext]',
           outputPath: 'assets/images',
           publicPath: '/assets/'
         }
@@ -45,7 +46,6 @@ module.exports = {
             loader: MiniCSSExtractPlugin.loader,
             options: {
               publicPath: '/assets/css',
-
             } 
           },
           'css-loader',
