@@ -7,8 +7,14 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: './src/[name].[hash].js',
+    filename: './[name].[hash].js',
     path: path.resolve(__dirname, 'dist')
+  },
+  devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')       // the src folder
+    }
   },
   devServer: {
     contentBase: 'dist',
@@ -54,12 +60,14 @@ module.exports = {
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
           }
-        }
+        ]
       }
     ]
   },
