@@ -1,15 +1,11 @@
-import * as pixi from 'pixi.js'
+require.context('./assets/images', true)
+import GameManager from './core/game-manager'
+import Player from './core/player'
 
-const app = new pixi.Application({ 
-  width: 256, 
-  height: 256,
-  antialias: true,
-  transparent: false,
-  resolution: 1 
+GameManager.setup().then(() => {
+  const player = new Player()
+  player.position.set(50, 50) 
+  GameManager.currentStage().addChild(player)
+  GameManager.start()
 })
-
-document.appendChild(app.view)
-
-
-
 

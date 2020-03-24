@@ -17,6 +17,7 @@ module.exports = {
     }
   },
   devServer: {
+    index: 'index.html',
     contentBase: 'dist',
     compress: true,
     port: 8080,
@@ -64,7 +65,10 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
+              presets: ['@babel/preset-env'],
+              plugins: [
+                "@babel/plugin-proposal-class-properties"
+              ]
             }
           }
         ]
