@@ -47,7 +47,7 @@ export default class ControlComponent extends Component {
   }
 
   /**
-   * 
+   * Execute the `handler` when the `key` is down. If `key` is null, then the `handler` executes if any key is down
    * @param {(keyCode: Number, ev: Event) => void} handler 
    * @param {String} key
    */

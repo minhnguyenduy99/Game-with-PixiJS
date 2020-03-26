@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "module-alias": "^2.2.2",
     "pixi.js": "^5.2.1",
     "pixi.js-keyboard": "^1.0.9",
     "pixi.js-mouse": "^1.0.4"

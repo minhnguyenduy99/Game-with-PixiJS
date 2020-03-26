@@ -1,22 +1,33 @@
 import * as pixi from 'pixi.js'
 import ControlComponent from './control-component'
 import ResourceManager from './resource-manager'
-import GameObject from './game-object'
+import SceneManager from './scene-manager'
+import BaseScene from './base-scene'
 
 class GameManager {
   
   /**
+   * @protected
    * @type {PIXI.Application}
    */
   _app
+
+  /**
+   * @protected
+   * @type {SceneManager}
+   */
+  _sceneManager
 
   constructor() {
     this._app = new pixi.Application({
       width: window.innerWidth,
       height: window.innerHeight,
       resolution: 1,
-      transparent: true
+      transparent: true,
+      resizeTo: window
     })
+    this._sceneManager = new SceneManager()
+    this._sceneManager.onCurrentSceneChanged((oldScene, newScene) => this._replaceSceneChildFromApp(oldScene, newScene))
   }
   
   /**
@@ -33,6 +44,14 @@ class GameManager {
    */
   addStage(stage) {
     this._app.stage.addChild(stage)
+  }
+
+  /**
+   * 
+   * @param {BaseScene} scene 
+   */
+  addScene(scene) {
+    this._sceneManager.addScene(scene)
   }
 
   currentStage() {
@@ -60,6 +79,7 @@ class GameManager {
    * Start the game
    */
   start() {
+    this._sceneManager.nextScene()
     this._app.ticker.add((delta) => this._gameLoop(delta))
   }
 
@@ -76,15 +96,26 @@ class GameManager {
   }
 
   /**
+   * 
+   * @param {BaseScene[]} args 
+   */
+  _replaceSceneChildFromApp([oldScene, newScene]) {
+    // If the old scene exists, remove it from application to avoid redundant render
+    if (oldScene) {
+      const oldSceneChild = this._app.stage.getChildByName(oldScene.name)
+      this._app.stage.removeChild(oldSceneChild)
+    }
+    this._app.stage.addChild(newScene)
+  }
+
+  /**
    * @protected
    * @param {Number} delta
    */
   _gameLoop(delta) {
-    this._app.stage.children.forEach((child) => {
-      if (child instanceof GameObject) {
-        child.update(delta)
-      }
-    })
+    const currentScene = this._sceneManager.currentScene
+    currentScene.render(this._app.renderer)
+    currentScene.update(delta)
     ControlComponent.update()
   }
 }

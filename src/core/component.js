@@ -1,4 +1,3 @@
-import * as pixi from 'pixi.js'
 
 export default class Component {
 

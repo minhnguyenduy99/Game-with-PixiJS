@@ -19,7 +19,7 @@ export default class Player extends GameObject {
   constructor() {
     super()
     this.setRenderSprite(new TileSprite("player", 100, 100))    //  Add sprite
-    this.setMoveDistance(1, 1)
+    this.setVelocity(10, 10)
     this.__initializeControlComponent()
     this.addComponent(this.controller)
   }
