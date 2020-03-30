@@ -10,16 +10,16 @@ const DEFAULT_TILE_ANIMATION_SPEED = 10
 export default class GameObject extends pixi.Container {
 
   /**
-   * @protected
+   * @public
    * @type {Number}
    */
-  _vX
+  vx
 
   /**
-   * @protected
+   * @public
    * @type {Number}
    */
-  _vY
+  vy
 
   /**
    * @protected
@@ -39,10 +39,6 @@ export default class GameObject extends pixi.Container {
    */
   _tileAnimationComponent
 
-  /**
-   * 
-   * @param {PIXI.Container} stage 
-   */
   constructor() {
     super()
     this._components = []
@@ -112,7 +108,9 @@ export default class GameObject extends pixi.Container {
    * @param {Number} delta 
    */
   update(delta) {
-    this.__updateComponents(delta)
+    this.__updateComponents(delta);
+    this.x+=this.vx*delta;
+    this.y+=this.vy*delta;
   }
 
   /**
@@ -121,8 +119,8 @@ export default class GameObject extends pixi.Container {
    * @param {Number} vy velocity on y-axis
    */
   setVelocity(vx, vy = vx) {
-    this._vX = vx
-    this._vY = vy
+    this.vx = vx
+    this.vy = vy
   }
 
   /**
@@ -131,41 +129,10 @@ export default class GameObject extends pixi.Container {
    */
   get velocity() {
     return {
-      vx: this._vX,
-      vy: this._vY
+      vx: this.vx,
+      vy: this.vy
     }
   }
-
-  moveLeft() {
-    this.position.x -= this._vX
-  }
-
-  moveRight() {
-    this.position.x += this._vX
-  }
-
-  moveTop() {
-    this.position.y -= this._vY
-  }
-
-  moveBottom() {
-    this.position.y += this._vY
-  }
-
-    /**
-   * Flip the sprite vertically
-   */
-  flipVertical() {
-    this.scale.set(-1, 1)
-  }
-
-  /**
-   * Flip the sprite horizontally
-   */
-  flipHorizontal() {
-    this.scale.set(1, -1)
-  }
-
 
   /**
    * Add render animation if the `_renderObj` is typeof `TileSprite`

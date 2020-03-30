@@ -1,9 +1,10 @@
+import GameObject from "./game-object"
 
 export default class Component {
 
   /**
    * @protected
-   * @type {PIXI.Sprite} 
+   * @type {GameObject} 
    */
   _object
 
@@ -15,7 +16,7 @@ export default class Component {
 
   /**
    * 
-   * @param {PIXI.Sprite} attachObj 
+   * @param {GameObject} attachObj 
    */
   constructor(attachObj) {
     this._object = attachObj
