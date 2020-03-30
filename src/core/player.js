@@ -1,6 +1,8 @@
 import TileSprite from "./tile-sprite";
 import ControlComponent from './control-component'
 import GameObject from './game-object'
+import { GameManager } from ".";
+import GameManagerInstance from "./game-manager";
 
 const PLAYER_KEY_CONTROLLER = {
   MOVE_UP: 'W',
@@ -26,7 +28,6 @@ export default class Player extends GameObject {
   __initializeDefaultComponents() {
     this.__initializeControlComponent()
     this.addComponent(this.controller)
-    this.addComponent(new ControlComponent(this));
   }
 
   /**
@@ -35,10 +36,10 @@ export default class Player extends GameObject {
    */
   __initializeControlComponent() {
     this.controller = new ControlComponent(this)
-    this.controller.onKeyDown(() => this.moveLeft(), PLAYER_KEY_CONTROLLER.MOVE_LEFT)
-    this.controller.onKeyDown(() => this.moveRight(), PLAYER_KEY_CONTROLLER.MOVE_RIGHT)
-    this.controller.onKeyDown(() => this.moveTop(), PLAYER_KEY_CONTROLLER.MOVE_UP)
-    this.controller.onKeyDown(() => this.moveBottom(), PLAYER_KEY_CONTROLLER.MOVE_DOWN)
+    // this.controller.onKeyDown(() => this.position.x += 10, PLAYER_KEY_CONTROLLER.MOVE_LEFT)
+    // this.controller.onKeyDown(() => this.moveRight(), PLAYER_KEY_CONTROLLER.MOVE_RIGHT)
+    // this.controller.onKeyDown(() => this.moveTop(), PLAYER_KEY_CONTROLLER.MOVE_UP)
+    // this.controller.onKeyDown(() => this.moveBottom(), PLAYER_KEY_CONTROLLER.MOVE_DOWN)
   }
 
   /**

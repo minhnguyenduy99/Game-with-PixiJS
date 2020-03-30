@@ -62,7 +62,8 @@ export default class GameObject extends pixi.Container {
     }
     this._renderObj = sprite
     this.addChild(this._renderObj)
-    this.pivot.set(this.width / 2, this.height / 2)
+    this._renderObj.pivot.set(this._renderObj.width / 2, this._renderObj.height / 2)
+    this._renderObj.scale.y = -1
     this.__addRenderAnimation()
   }
 
@@ -103,14 +104,19 @@ export default class GameObject extends pixi.Container {
     this._tileAnimationComponent.setAnimationSpeed(speed)
   }
 
+  render(renderer) {
+    super.render(renderer)
+    this._components.forEach(component => component.render())
+  }
+
   /**
    * @override
    * @param {Number} delta 
    */
   update(delta) {
     this.__updateComponents(delta);
-    this.x+=this.vx*delta;
-    this.y+=this.vy*delta;
+    // this.x+=this.vx*delta;
+    // this.y+=this.vy*delta;
   }
 
   /**

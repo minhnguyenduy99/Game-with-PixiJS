@@ -7,7 +7,10 @@ const b = new Bump(pixi)
 console.log(b)
 
 GameManager.setup().then(() => {
-  GameManager.addScene(new TestScene("test"))
+  const scene = new TestScene("test");
+  scene.pivot.set(0, window.innerHeight);
+  scene.scale.set(1, -1);
+  GameManager.addScene(scene);
   GameManager.start()
 })
 

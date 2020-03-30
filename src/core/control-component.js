@@ -1,6 +1,7 @@
 import Component from "./component";
 import Keyboard from 'pixi.js-keyboard'
 import Mouse from 'pixi.js-mouse'
+import GameManagerInstance from "./game-manager";
 
 export default class ControlComponent extends Component {
 
@@ -26,6 +27,10 @@ export default class ControlComponent extends Component {
       handler()
       ev.preventDefault()
     })
+  }
+
+  render() {
+    super.render()
   }
 
   /**

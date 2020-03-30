@@ -53,4 +53,6 @@ export default class Component {
       return
     }
   }
+
+  render() {}
 }

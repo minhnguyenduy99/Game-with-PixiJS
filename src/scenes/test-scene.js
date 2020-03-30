@@ -13,7 +13,7 @@ export default class TestScene extends BaseScene {
   __initializeGameObjects() {
     const player = new Player()
     player.position.set(50, 50)
-    player.addComponent(new Rigibody(player,0,100,0,0));
+    //player.addComponent(new Rigibody(player,0,100,0,0));
     this.addChild(player)
   }
 }

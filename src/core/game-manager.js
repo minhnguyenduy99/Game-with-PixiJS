@@ -18,6 +18,12 @@ class GameManager {
    */
   _sceneManager
 
+  /**
+   * @protected
+   * @type {PIXI.Graphics}
+   */
+  _graphics
+
   constructor() {
     this._app = new pixi.Application({
       width: window.innerWidth,
@@ -26,8 +32,16 @@ class GameManager {
       transparent: true,
       resizeTo: window
     })
+    this._graphics = new pixi.Graphics()
     this._sceneManager = new SceneManager()
     this._sceneManager.onCurrentSceneChanged((oldScene, newScene) => this._replaceSceneChildFromApp(oldScene, newScene))
+  }
+
+  /**
+   * @type {PIXI.Graphics}
+   */
+  get graphics() {
+    return this._graphics
   }
   
   /**
