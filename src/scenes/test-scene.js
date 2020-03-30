@@ -1,4 +1,4 @@
-import { BaseScene } from "../core"
+import { BaseScene, ControlComponent } from "../core"
 import Player from "../core/player"
 
 export default class TestScene extends BaseScene {

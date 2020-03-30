@@ -16,7 +16,7 @@ export default class ControlComponent extends Component {
   /**
    * 
    * @param {Number} key 
-   * @param {*} event 
+   * @param {*} event
    */
   addKeyController(key, event, handler) {
     Keyboard.events.on(event, (keyCode, ev) => {

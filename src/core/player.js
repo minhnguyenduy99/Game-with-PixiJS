@@ -20,8 +20,13 @@ export default class Player extends GameObject {
     super()
     this.setRenderSprite(new TileSprite("player", 100, 100))    //  Add sprite
     this.setVelocity(10, 10)
+    this.__initializeDefaultComponents();
+  }
+
+  __initializeDefaultComponents() {
     this.__initializeControlComponent()
     this.addComponent(this.controller)
+    this.addComponent(new ControlComponent(this));
   }
 
   /**
@@ -34,6 +39,14 @@ export default class Player extends GameObject {
     this.controller.onKeyDown(() => this.moveRight(), PLAYER_KEY_CONTROLLER.MOVE_RIGHT)
     this.controller.onKeyDown(() => this.moveTop(), PLAYER_KEY_CONTROLLER.MOVE_UP)
     this.controller.onKeyDown(() => this.moveBottom(), PLAYER_KEY_CONTROLLER.MOVE_DOWN)
+  }
+
+  /**
+   * 
+   * @param {PIXI.Renderer} renderer 
+   */
+  render(renderer) {
+    super.render(renderer);
   }
 
   /**

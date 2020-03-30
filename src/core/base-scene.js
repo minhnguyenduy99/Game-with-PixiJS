@@ -18,7 +18,7 @@ export default class BaseScene extends pixi.Container {
    * @param {Number} delta 
    */
   update(delta) {
-    this.children.forEach(child => {
+    this.children.forEach( (child) => {
       if (child instanceof GameObject) {
         child.update(delta)
       }

@@ -3,8 +3,9 @@ import Sprite from './sprite'
 import Component from './component'
 import AnimationComponent from './animation-component'
 import TileSprite from './tile-sprite'
+import { ControlComponent } from '.'
 
-const DEFAULT_TILE_ANIMATION_SPEED = 20
+const DEFAULT_TILE_ANIMATION_SPEED = 10
 
 export default class GameObject extends pixi.Container {
 
@@ -49,6 +50,13 @@ export default class GameObject extends pixi.Container {
   }
 
   /**
+   * @returns {ControlComponent}
+   */
+  get controlComponent() {
+    return this.getComponent(ControlComponent);
+  }
+
+  /**
    * Set a sprite to game object. If the sprite already exists, it will be replaced by the new one
    * @param {Sprite} sprite 
    */
@@ -64,10 +72,28 @@ export default class GameObject extends pixi.Container {
 
   /**
    * Add a component to game object
-   * @param {Component} component 
+   * @param {Component} newComponent 
    */
-  addComponent(component) {
-    this._components.push(component)
+  addComponent(newComponent) {
+    const componentIndex = this._components.findIndex(function(component) {
+      return component.constructor.name === newComponent.constructor.name;
+    })
+    if (componentIndex !== -1) {
+      return;
+    }
+    this._components.push(newComponent)
+  }
+
+  /**
+   * 
+   * @param {Function} componentClass The class of component
+   * @returns {Component}
+   */
+  getComponent(componentClass) {
+    if (!(componentClass instanceof Component)) {
+      throw new Error("Component class must be typeof Component");
+    }
+    return this._components.find(component => component.constructor.name === componentClass.constructor.name);
   }
 
   /**
