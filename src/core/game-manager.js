@@ -26,10 +26,10 @@ class GameManager {
 
   constructor() {
     this._app = new pixi.Application({
+      view: document.getElementById("mycanvas"),
       width: window.innerWidth,
       height: window.innerHeight,
       resolution: 1,
-      transparent: true,
       resizeTo: window
     })
     this._graphics = new pixi.Graphics()
@@ -94,6 +94,7 @@ class GameManager {
    */
   start() {
     this._sceneManager.nextScene()
+    this._app.renderer.backgroundColor = 0x00ff00
     this._app.ticker.add((delta) => this._gameLoop(delta))
   }
 
@@ -103,6 +104,7 @@ class GameManager {
    */
   _initializeResource() {
     ResourceManager.addTexture("player", "./assets/images/player.png")
+    ResourceManager.addTexture("b", "./assets/images/b.png")
     ResourceManager.addTextureCollection("player", [
       { name: "run", path: "./assets/images/player.png" }
     ])

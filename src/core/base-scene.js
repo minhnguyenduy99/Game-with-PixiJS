@@ -1,7 +1,7 @@
 import * as pixi from 'pixi.js'
 import GameObject from './game-object'
 
-export default class BaseScene extends pixi.Container {
+export default class BaseScene extends pixi.Sprite {
 
   /**
    * 

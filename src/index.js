@@ -7,6 +7,7 @@ const b = new Bump(pixi)
 console.log(b)
 
 GameManager.setup().then(() => {
+  window.document.body.appendChild(GameManager.gameView)
   const scene = new TestScene("test");
   scene.pivot.set(0, window.innerHeight);
   scene.scale.set(1, -1);

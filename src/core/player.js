@@ -23,6 +23,7 @@ export default class Player extends GameObject {
     this.setRenderSprite(new TileSprite("player", 100, 100))    //  Add sprite
     this.setVelocity(10, 10)
     this.__initializeDefaultComponents();
+    this._renderObj.setFilter(0xff00ff)
   }
 
   __initializeDefaultComponents() {

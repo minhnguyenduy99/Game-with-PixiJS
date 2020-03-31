@@ -1,6 +1,6 @@
-import { BaseScene, ControlComponent } from "../core"
+import { BaseScene, ControlComponent, ResourceManager } from "../core"
 import Player from "../core/player"
-import Rigibody from "../core/rigibody"
+import * as pixi from "pixi.js"
 
 export default class TestScene extends BaseScene {
 

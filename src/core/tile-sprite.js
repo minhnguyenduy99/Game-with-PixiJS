@@ -43,4 +43,18 @@ export default class TileSprite extends pixi.TilingSprite {
     this._currentTileIndex = (this._currentTileIndex + 1) % this._columns
     this.tilePosition.x = this.width * this._currentTileIndex
   }
+
+  /**
+   * @public
+   */
+  setFilter(colorCode) {
+    let color = new pixi.filters.ColorMatrixFilter();
+    let r = colorCode >> 16 & 0xFF;
+    let g = colorCode >> 8 & 0xFF;
+    let b = colorCode & 0xFF;
+    color.matrix[0] = r / 255;
+    color.matrix[6] = g / 255;
+    color.matrix[12] = b / 255;
+    this.filters = [color]
+  }
 }
