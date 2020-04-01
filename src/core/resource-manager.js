@@ -43,7 +43,7 @@ class ResourceManager {
    */
   addTextureCollection(tag = '', resources = []) {
     resources.forEach(resource => {
-      this.addTexture(this.generateResourceName(tag, resource.name), resource.path)
+      this.addResource(this.generateResourceName(tag, resource.name), resource.path)
     })
   }
 
@@ -93,14 +93,26 @@ class ResourceManager {
   }
 
   /**
+   * Return the JSON data resource
+   * @param {string} name Name of the resource
+   */
+  getJSONData(name) {
+    const resource = this.__loader.resources[name]
+    if (resource.extension !== 'json') {
+      throw new Error("The resource is not in json format")
+    }
+    const object = JSON.parse(JSON.stringify(resource.data))
+    return object
+  }
+
+  /**
    * 
    * @param {String} name alias for the texture
    * @param {String} sourcePath the path to the resource
    */
-  addTexture(name, sourcePath) {
+  addResource(name, sourcePath) {
     return this.__loader.add(name, sourcePath)
   }
-
 
   /**
    * @private
