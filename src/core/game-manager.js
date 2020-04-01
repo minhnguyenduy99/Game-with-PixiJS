@@ -103,11 +103,13 @@ class GameManager {
    * Initialize resources of the game
    */
   _initializeResource() {
-    ResourceManager.addTexture("player", "./assets/images/player.png")
-    ResourceManager.addTexture("b", "./assets/images/b.png")
+    ResourceManager.addResource("tilemap","./assets/images/tilemap.png")
+    ResourceManager.addResource("player", "./assets/images/player.png")
+    ResourceManager.addResource("b", "./assets/images/b.png")
     ResourceManager.addTextureCollection("player", [
       { name: "run", path: "./assets/images/player.png" }
     ])
+    ResourceManager.add
     return ResourceManager.load()
   }
 
