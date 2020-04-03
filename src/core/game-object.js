@@ -63,7 +63,7 @@ export default class GameObject extends pixi.Container {
     this._renderObj = sprite
     this.addChild(this._renderObj)
     this._renderObj.pivot.set(this._renderObj.width / 2, this._renderObj.height / 2)
-    this._renderObj.scale.y = -1
+    this._renderObj.scale.y = -1  
     this.__addRenderAnimation()
   }
 

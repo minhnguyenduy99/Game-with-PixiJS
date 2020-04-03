@@ -34,6 +34,7 @@ class GameManager {
     })
     this._graphics = new pixi.Graphics()
     this._sceneManager = new SceneManager()
+    this.setGameColor(0xffffff)
     this._sceneManager.onCurrentSceneChanged((oldScene, newScene) => this._replaceSceneChildFromApp(oldScene, newScene))
   }
 
@@ -49,6 +50,14 @@ class GameManager {
    */
   get gameView() {
     return this._app.view
+  }
+
+  /**
+   * Set the game background color
+   * @param {number} color The color
+   */
+  setGameColor(color) {    
+    this._app.renderer.backgroundColor = color
   }
 
   /**

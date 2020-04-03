@@ -13,5 +13,6 @@ GameManager.setup().then(() => {
   scene.scale.set(1, -1);
   GameManager.addScene(scene);
   GameManager.start()
+  GameManager.setGameColor(0x0ff00)
 })
 
