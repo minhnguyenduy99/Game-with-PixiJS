@@ -3,9 +3,10 @@ import ControlComponent from './control-component'
 import ResourceManager from './resource-manager'
 import SceneManager from './scene-manager'
 import BaseScene from './base-scene'
+import { Bump } from './bump'
 
 class GameManager {
-  
+
   /**
    * @protected
    * @type {PIXI.Application}
@@ -38,13 +39,18 @@ class GameManager {
     this._sceneManager.onCurrentSceneChanged((oldScene, newScene) => this._replaceSceneChildFromApp(oldScene, newScene))
   }
 
+  __bump = new Bump(pixi)
+  get bump() {
+    return this.__bump
+  }
+
   /**
    * @type {PIXI.Graphics}
    */
   get graphics() {
     return this._graphics
   }
-  
+
   /**
    * Return the auto-generated view of the game
    */
@@ -56,7 +62,7 @@ class GameManager {
    * Set the game background color
    * @param {number} color The color
    */
-  setGameColor(color) {    
+  setGameColor(color) {
     this._app.renderer.backgroundColor = color
   }
 
@@ -104,7 +110,10 @@ class GameManager {
   start() {
     this._sceneManager.nextScene()
     this._app.renderer.backgroundColor = 0x00ff00
-    this._app.ticker.add((delta) => this._gameLoop(delta))
+    this._app.ticker.maxFPS = 120
+    this._app.ticker.add((delta) => {
+      this._gameLoop(delta / this._app.ticker.FPS)
+    })
   }
 
   /**
@@ -112,7 +121,7 @@ class GameManager {
    * Initialize resources of the game
    */
   _initializeResource() {
-    ResourceManager.addResource("tilemap","./assets/images/tilemap.png")
+    ResourceManager.addResource("tilemap", "./assets/images/tilemap.png")
     ResourceManager.addResource("player", "./assets/images/player.png")
     ResourceManager.addResource("b", "./assets/images/b.png")
     ResourceManager.addTextureCollection("player", [

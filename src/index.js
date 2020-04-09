@@ -3,9 +3,6 @@ import * as pixi from 'pixi.js'
 import { GameManager, Bump } from './core'
 import TestScene from './scenes/test-scene'
 
-const b = new Bump(pixi)
-console.log(b)
-
 GameManager.setup().then(() => {
   window.document.body.appendChild(GameManager.gameView)
   const scene = new TestScene("test");
@@ -15,4 +12,3 @@ GameManager.setup().then(() => {
   GameManager.start()
   GameManager.setGameColor(0x0ff00)
 })
-

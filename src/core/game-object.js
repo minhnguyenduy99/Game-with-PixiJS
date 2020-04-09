@@ -23,7 +23,7 @@ export default class GameObject extends pixi.Container {
 
   /**
    * @protected
-   * @type {Sprite}
+   * @type {Sprite | TileSprite}
    */
   _renderObj
 
@@ -54,7 +54,7 @@ export default class GameObject extends pixi.Container {
 
   /**
    * Set a sprite to game object. If the sprite already exists, it will be replaced by the new one
-   * @param {Sprite} sprite 
+   * @param {Sprite | TileSprite} sprite 
    */
   setRenderSprite(sprite) {
     if (this._renderObj) {
@@ -63,22 +63,24 @@ export default class GameObject extends pixi.Container {
     this._renderObj = sprite
     this.addChild(this._renderObj)
     this._renderObj.pivot.set(this._renderObj.width / 2, this._renderObj.height / 2)
-    this._renderObj.scale.y = -1  
+    this._renderObj.scale.y = -1
     this.__addRenderAnimation()
   }
 
   /**
    * Add a component to game object
+   * @returns {Component} component just add
    * @param {Component} newComponent 
    */
   addComponent(newComponent) {
-    const componentIndex = this._components.findIndex(function(component) {
+    const componentIndex = this._components.findIndex(function (component) {
       return component.constructor.name === newComponent.constructor.name;
     })
     if (componentIndex !== -1) {
       return;
     }
     this._components.push(newComponent)
+    return newComponent
   }
 
   /**
@@ -87,10 +89,12 @@ export default class GameObject extends pixi.Container {
    * @returns {Component}
    */
   getComponent(componentClass) {
-    if (!(componentClass instanceof Component)) {
+    if (!(componentClass.prototype instanceof Component)) {
       throw new Error("Component class must be typeof Component");
     }
-    return this._components.find(component => component.constructor.name === componentClass.constructor.name);
+    return this._components.find(component => {
+      return component.constructor.name === componentClass.name;
+    });
   }
 
   /**
@@ -109,14 +113,23 @@ export default class GameObject extends pixi.Container {
     this._components.forEach(component => component.render())
   }
 
+  get isGameObject() {
+    return true;
+  }
+
   /**
    * @override
    * @param {Number} delta 
    */
   update(delta) {
+    this.x += this.vx * delta;
+    this.y += this.vy * delta;
     this.__updateComponents(delta);
-    // this.x+=this.vx*delta;
-    // this.y+=this.vy*delta;
+    this.children.forEach((child) => {
+      if (child.isGameObject) {
+        child.update(delta);
+      }
+    })
   }
 
   /**
