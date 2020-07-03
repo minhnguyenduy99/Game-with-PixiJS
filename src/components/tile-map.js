@@ -1,11 +1,12 @@
 import { Component, GameObject, TileSprite } from "../core";
 import GameManagerInstance from "../core/game-manager";
+import { sweptAABB } from "../core/collision";
 
 const test = [
-	[1, 1, 1, 1, 1, -1],
-	[1, 1, -1, -1, 1, 1],
+	[1, -1, 1, -1, 1, -1],
+	[-1, 1, 1, -1, 1, 1],
 	[1, 1, 1, -1, 1, 1],
-	[1, 1, 1, 1, 1]
+	[-1, -1, -1, 1, 1]
 ]
 
 export default class TileMap extends Component {
@@ -130,43 +131,5 @@ export default class TileMap extends Component {
 				tile.setFilter(colorCode)
 			})
 		})
-	}
-
-	update(delta) {
-		super.update(delta)
-
-		let b = GameManagerInstance.bump
-
-		this.collisionObject.forEach(e => {
-			let width = e.getBounds(false).width
-			let height = e.getBounds(false).height
-			let top = Math.floor((e.y + height / 2) / 32) + 1
-			let bot = Math.floor((e.y - height / 2) / 32) - 1
-			let left = Math.floor((e.x - width / 2) / 32) - 1
-			let right = Math.floor((e.x + width / 2) / 32) + 1
-			for (let i = bot; i <= top; i++)
-				for (let j = left; j <= right; j++)
-					if (this.__getPoint(i, j) > 0) {
-						//console.log(`[${this.__map[i][j]}] [${e}]`)
-						if (b.hit(e, this.__map[i][j], true))
-							e.vy = 10
-							console.log("bùm")
-					}
-
-		})
-	}
-
-	/**
-	 * @type {GameObject[]}
-	 */
-	collisionObject = []
-
-	/**
-	 * @public
-	 * @param {GameObject} obj 
-	 */
-	AddColisionObject(obj) {
-		this._containerObj.addChild(obj)
-		this.collisionObject.push(obj)
 	}
 }

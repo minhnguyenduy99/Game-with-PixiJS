@@ -4,8 +4,16 @@ import Component from './component'
 import AnimationComponent from './animation-component'
 import TileSprite from './tile-sprite'
 import { ControlComponent } from '.'
+// import Rigibody from '../components/rigibody'
+//import PhysicalInstance from './physical'
 
 const DEFAULT_TILE_ANIMATION_SPEED = 10
+
+
+/**
+ * @type {number} covert cm to pixel
+ */
+const CENTIMET_TO_PIXEL = 29
 
 export default class GameObject extends pixi.Container {
 
@@ -79,7 +87,11 @@ export default class GameObject extends pixi.Container {
     if (componentIndex !== -1) {
       return;
     }
+    // if (newComponent instanceof Rigibody)
+    //   PhysicalInstance.RigibodyList.push(newComponent)
+    // else
     this._components.push(newComponent)
+    newComponent._object = this;
     return newComponent
   }
 
@@ -122,14 +134,14 @@ export default class GameObject extends pixi.Container {
    * @param {Number} delta 
    */
   update(delta) {
-    this.x += this.vx * delta;
-    this.y += this.vy * delta;
-    this.__updateComponents(delta);
+    this.__updateComponents(delta)
     this.children.forEach((child) => {
       if (child.isGameObject) {
-        child.update(delta);
+        child.update(delta)
       }
     })
+    this.x += this.vx * delta
+    this.y += this.vy * delta
   }
 
   /**

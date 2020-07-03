@@ -3,7 +3,7 @@ import ControlComponent from './control-component'
 import ResourceManager from './resource-manager'
 import SceneManager from './scene-manager'
 import BaseScene from './base-scene'
-import { Bump } from './bump'
+//import PhysicalInstance from './physical'
 
 class GameManager {
 
@@ -37,11 +37,6 @@ class GameManager {
     this._sceneManager = new SceneManager()
     this.setGameColor(0xffffff)
     this._sceneManager.onCurrentSceneChanged((oldScene, newScene) => this._replaceSceneChildFromApp(oldScene, newScene))
-  }
-
-  __bump = new Bump(pixi)
-  get bump() {
-    return this.__bump
   }
 
   /**
@@ -152,6 +147,7 @@ class GameManager {
     const currentScene = this._sceneManager.currentScene
     currentScene.render(this._app.renderer)
     currentScene.update(delta)
+    //PhysicalInstance.Update(delta)
     ControlComponent.update()
   }
 }

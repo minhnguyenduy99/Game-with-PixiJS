@@ -14,13 +14,8 @@ export default class Component {
    */
   _isActive
 
-  /**
-   * 
-   * @param {GameObject} attachObj 
-   */
-  constructor(attachObj) {
-    this._object = attachObj
-    this.deactive()
+  constructor() {
+    this.activate()
   }
 
   /**

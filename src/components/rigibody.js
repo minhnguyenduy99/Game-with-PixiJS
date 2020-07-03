@@ -1,7 +1,5 @@
 import Component from '../core/component'
-import { GameObject } from '../core';
-
-const gravitiScale = 10
+import GameObject from '../core/game-object'
 
 export default class Rigibody extends Component {
     /**
@@ -26,8 +24,8 @@ export default class Rigibody extends Component {
      */
     constructor(gameObject, vx = 0, vy = 0) {
         super(gameObject);
-        this._object.setVelocity(vx, vy * gravitiScale);
-        this.ax = 0;
+        this._object.setVelocity(vx, vy);
+        this.ax = -1;
         this.ay = -9.8;
     }
 
@@ -38,6 +36,6 @@ export default class Rigibody extends Component {
     update(delta) {
         super.update(delta);
         this._object.vx += this.ax * delta;
-        this._object.vy += this.ay * gravitiScale * delta;
+        this._object.vy += this.ay * delta;
     }
 }
